@@ -68,7 +68,7 @@ async function crawlPage(baseURL, currentURL, pages) {
 	} else {
 		pages[normalisedCurrentURL] = 1;
 
-		console.log(`\nCrawling ${currentURL} page has started...`);
+		console.log(`Crawling ${currentURL} page has started...`);
 
 		const options = {
 			method: "GET",
@@ -85,7 +85,10 @@ async function crawlPage(baseURL, currentURL, pages) {
 				console.log(`HTTP error: ${response.status}, ${response.statusText}`);
 				return pages;
 			}
-			if (!response.headers.get("Content-Type").startsWith("text/html")) {
+			if (
+				!response.headers.get("Content-Type").startsWith("text/html") &&
+				!response.headers.get("Content-Type").startsWith("text/HTML")
+			) {
 				console.log(`Error: invalid content type: ${response.headers.get("Content-Type")}`);
 				return pages;
 			}
